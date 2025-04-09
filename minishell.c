@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 14:23:38 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/08 18:45:23 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/09 13:36:40 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,24 @@ void print_list(t_list **head)
 	}
 }
 
+int is_empty(char *line)
+{
+	if (line[0] == '\0')
+	{
+		return (1);
+	}
+	return 0;
+}
+
+
+
 
 int main(int ac , char **av , char **envp)
 {
     (void) ac;
     (void) av;
-    
+	char *line;
+	char *commands;
     int i = 0;
     t_list *env_list = NULL;
 
@@ -53,7 +65,29 @@ int main(int ac , char **av , char **envp)
             append_env(&env_list, node);
         i++;
     }
-    print_list(&env_list);
+    // print_list(&env_list);
+	while (1)
+	{
+		line = readline("minishell$ ");
+		if(!line)
+		{
+			free(line);
+			exit(1);
+		}
+		if (is_empty(line))
+		{
+			continue;
+		}
+		add_history(line);
+		commands = parse_line(line);
+		execute(commands);
+
+		 // 7. Cleanup
+		free(line);
+		free_commands(commands);
+
+	}
+
     
 
 

@@ -1,41 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 14:20:48 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/09 13:36:57 by sjoukni          ###   ########.fr       */
+/*   Created: 2025/04/09 13:44:19 by sjoukni           #+#    #+#             */
+/*   Updated: 2025/04/09 13:45:48 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-
-typedef struct s_token
+int	ft_isdigit(int c)
 {
-	char *value;
-	int type; 
-	struct s_token *next;
-} t_token;
-
-
-# include <fcntl.h>
-# include <limits.h>
-# include <stddef.h>
-# include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
-#include "libft/libft.h"
-
-
-char *parce_line(char *line);
-
-
-
-#endif
+	return (c = 32 || (c >= 9 && c <= 13));
+}

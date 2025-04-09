@@ -5,7 +5,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 CFLAGS = -Wall -Wextra -Werror 
 HEADER = minishell.h 
 
-SRC_FILES = minishell.c \
+SRC_FILES = minishell.c parcing.c
 
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
@@ -14,7 +14,7 @@ all: $(NAME)
 
 
 $(NAME): $(OBJ_FILES) $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJ_FILES)  $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ_FILES) $(LIBFT) -lreadline -o $(NAME)
 
 %.o: %.c $(HEADER)
 	@$(CC) $(CFLAGS) -c $< -o $@
