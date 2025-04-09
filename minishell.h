@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 14:20:48 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/09 13:36:57 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/09 16:35:44 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@ typedef struct s_token
 	struct s_token *next;
 } t_token;
 
+typedef enum e_token_type
+{
+    WORD,       // 0: words
+    PIPE,       // 1: |
+    REDIR_IN,   // 2: <
+    REDIR_OUT,  // 3: >
+    APPEND,     // 4: >>
+    HEREDOC     // 5: <<
+} t_token_type;
 
 # include <fcntl.h>
 # include <limits.h>
@@ -35,6 +44,7 @@ typedef struct s_token
 
 
 char *parce_line(char *line);
+t_token *tokenize_line(char *line);
 
 
 
