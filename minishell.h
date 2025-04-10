@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 14:20:48 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/09 16:35:44 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/10 17:23:23 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ typedef enum e_token_type
 
 
 char *parce_line(char *line);
-t_token *tokenize_line(char *line);
+t_token *tokenize_line(char *line, t_list *env, int last_exit_status);
+char *expand_token_value(char *value, t_list *env, int last_exit);
 
 
 

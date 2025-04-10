@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 17:57:06 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/09 13:47:20 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/10 17:30:44 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stddef.h>
+# include <string.h>
 
 typedef struct s_list
 {
@@ -52,6 +53,9 @@ char	*ft_strrchr(const char *s, int c);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 int		ft_isspace(int c);
+int		ft_isuper(int c);
+int		ft_islower(int c);
+
 
 /* PART 2 */
 

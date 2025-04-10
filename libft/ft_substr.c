@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 12:05:14 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/01/26 18:20:40 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/10 17:30:16 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	if (s == NULL)
 		return (NULL);
-	s_len = ft_strlen(s);
+	s_len = strlen(s);
 	if (start >= s_len)
 		return ((char *)ft_calloc(1, sizeof(char)));
 	if (len > s_len - start)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sjoukni <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:46:49 by sjoukni           #+#    #+#             */
-/*   Updated: 2024/11/01 14:27:00 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/10 14:56:00 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,12 @@
 int	ft_isalpha(int c)
 {
 	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
+}
+int	ft_isuper(int c)
+{
+	return ((c >= 'A' && c <= 'Z'));
+}
+int	ft_islower(int c)
+{
+	return ((c >= 'a' && c <= 'z'));
 }

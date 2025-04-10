@@ -5,7 +5,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 CFLAGS = -Wall -Wextra -Werror 
 HEADER = minishell.h 
 
-SRC_FILES = minishell.c parcing.c
+SRC_FILES = minishell.c parcing.c parce_dollar.c
 
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
