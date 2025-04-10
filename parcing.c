@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:36:31 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/09 16:49:50 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/10 12:01:39 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,32 +53,34 @@ void append_token(t_token **head, t_token *new)
 }
 
 
-int get_token_length(char *line, int i) 
+int get_token_length(char *line, int i)
 {
-    int length = 0;
+    int start = i;
+    char quote_type;
 
-    while (line[i] == ' ' || line[i] == '\t') {
+    while (ft_isspace(line[i]))
         i++;
-    }
-
-    if (line[i] == '\'' || line[i] == '\"') {
-        char quote_type = line[i];
-        i++; 
-        while (line[i] != quote_type && line[i] != '\0') {
+    if (is_quote(line[i]))
+    {
+        quote_type = line[i++];
+        while (line[i] && line[i] != quote_type)
+            i++;
+        if (line[i] == quote_type)
             i++; 
-        }
-        if (line[i] == quote_type) {
-            i++;  
-        }
+        return i - start;
     }
-
-    while (line[i] != '\0' && line[i] != ' ' && line[i] != '\t' &&
-           !is_operator(line[i]) && line[i] != '\'' && line[i] != '\"') {
-        i++; 
+    if (is_operator(line[i]))
+    {
+        if (is_operator(line[i + 1]) && line[i] == line[i + 1])
+            return 2;
+        return 1;
     }
-
-    length = i;  
-    return length;
+    while (line[i] &&
+           !ft_isspace(line[i]) &&
+           !is_operator(line[i]) &&
+           !is_quote(line[i]))
+        i++;
+    return i - start;
 }
 
 t_token_type get_token_type(char *str)
@@ -105,16 +107,18 @@ t_token *tokenize_line(char *line)
 
     while (line[i])
     {
-        while (line[i] == ' ' || line[i] == '\t')
+        while (ft_isspace(line[i]))
             i++;
         if (!line[i])
             break;
         len = get_token_length(line, i);
         token_str = strndup(line + i, len);
         type = get_token_type(token_str);
+
         append_token(&head, create_token(token_str, type));
         free(token_str);
         i += len;
     }
-    return (head);
+    return head;
 }
+
