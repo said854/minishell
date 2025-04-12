@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 14:20:48 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/10 17:23:23 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/12 18:01:09 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@ typedef enum e_token_type
     HEREDOC     // 5: <<
 } t_token_type;
 
+typedef struct s_cmd {
+	char **args;         // command and its arguments
+	char *infile;        // file for input redirection
+	char *outfile;       // file for output redirection
+	int append;          // 1 if >>
+	int has_pipe;        // 1 if this cmd is followed by |
+	struct s_cmd *next;
+} t_cmd;
+
+
 # include <fcntl.h>
 # include <limits.h>
 # include <stddef.h>
@@ -46,6 +56,8 @@ typedef enum e_token_type
 char *parce_line(char *line);
 t_token *tokenize_line(char *line, t_list *env, int last_exit_status);
 char *expand_token_value(char *value, t_list *env, int last_exit);
+int check_syntax(t_token *token_list);
+t_cmd *build_cmd_list(t_token *tokens);
 
 
 

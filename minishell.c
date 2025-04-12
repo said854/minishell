@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 14:23:38 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/10 17:32:01 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/12 18:00:47 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,49 @@ int is_empty(char *line)
 	}
 	return 0;
 }
- void print_list_env(t_list **head)
- {
- 	t_list *tmp = *head;
- 
- 	while (tmp)
- 	{
- 		printf("key: %s | value: %s\n", tmp->key, tmp->value);
- 		tmp = tmp->next;
- 	}
- }
+void print_list_env(t_list **head)
+{
+    t_list *tmp = *head;
+
+    while (tmp)
+    {
+        printf("key: %s | value: %s\n", tmp->key, tmp->value);
+        tmp = tmp->next;
+    }
+}
+#include <stdio.h>
+
+void print_cmd_list(t_cmd *cmd_list)
+{
+    int i;
+    int cmd_num = 1;
+
+    while (cmd_list)
+    {
+        printf("🔹 CMD %d:\n", cmd_num++);
+
+        // Print args
+        printf("  args    = ");
+        if (cmd_list->args)
+        {
+            i = 0;
+            while (cmd_list->args[i])
+                printf("\"%s\" ", cmd_list->args[i++]);
+        }
+        else
+            printf("(none)");
+        printf("\n");
+
+        // Print redirections
+        printf("  infile  = %s\n", cmd_list->infile ? cmd_list->infile : "(none)");
+        printf("  outfile = %s\n", cmd_list->outfile ? cmd_list->outfile : "(none)");
+        printf("  append  = %d\n", cmd_list->append);
+        printf("  pipe    = %s\n", cmd_list->has_pipe ? "true" : "false");
+        printf("\n");
+
+        cmd_list = cmd_list->next;
+    }
+}
 
 int main(int ac, char **av, char **envp)
 {
@@ -64,7 +97,7 @@ int main(int ac, char **av, char **envp)
     int i = 0;
     t_list *env_list = NULL;
     t_token *cmd;
-
+    t_cmd *f_cmd;
     while (envp[i])
     {
         t_list *node = ft_lstnew(envp[i]);
@@ -72,7 +105,7 @@ int main(int ac, char **av, char **envp)
             append_env(&env_list, node);
         i++;
     }
-
+    // print_list_env(&env_list);
     // print_list(&env_list);
     while (1)
     {
@@ -91,9 +124,11 @@ int main(int ac, char **av, char **envp)
 
         int last = 0;
         cmd = tokenize_line(line, env_list, last);
-        print_list(cmd);
-
-		
+        if (check_syntax(cmd))
+        {
+            f_cmd = build_cmd_list(cmd);
+            print_cmd_list(f_cmd);
+        }
         // free_token_list(cmd); 
         // free(line);
     }

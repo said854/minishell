@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:36:31 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/10 17:38:29 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/12 16:57:10 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int get_token_length(char *line, int i)
     }
     if (is_operator(line[i]))
     {
-        if (is_operator(line[i + 1]) && line[i] == line[i + 1])
+        if (is_operator(line[i + 1]) && (line[i] == line[i + 1] && line[i] != '|'))
             return 2;
         return 1;
     }
