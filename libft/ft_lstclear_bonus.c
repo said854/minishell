@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sjoukni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/13 19:00:46 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/13 19:01:05 by sjoukni          ###   ########.fr       */
+/*   Created: 2024/11/01 18:31:04 by sjoukni           #+#    #+#             */
+/*   Updated: 2024/11/01 18:32:55 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	size_t	i = 0;
+	t_list	*temp;
 
-	if (!s)
-		return (0);
-	while (s[i])
-		i++;
-	return (i);
+	if (!lst || !(*lst) || !del)
+		return ;
+	while (*lst != NULL)
+	{
+		temp = (*lst)->next;
+		if ((*lst)->content)
+			del((*lst)->content);
+		free(*lst);
+		*lst = temp;
+	}
+	*lst = NULL;
 }

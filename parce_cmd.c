@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:54:25 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/12 18:15:08 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/13 19:14:12 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,6 @@ int calculate_args(t_cmd *cmd)
     return i;
 }
 
-void free_array(char **arr)
-{
-    int i = 0;
-    while (arr[i])
-        free(arr[i++]);
-    free(arr);
-}
-
-
 void add_arg_to_cmd(t_cmd *cmd, char *arg)
 {
     int old_len = calculate_args(cmd);
@@ -56,10 +47,10 @@ void add_arg_to_cmd(t_cmd *cmd, char *arg)
     int i = 0;
     while (i < old_len)
     {
-        args[i] = strdup(cmd->args[i]);
+        args[i] = ft_strdup(cmd->args[i]);
         i++;
     }
-    args[i++] = strdup(arg);  
+    args[i++] = ft_strdup(arg);  
     args[i] = NULL;              
     if (cmd->args)
         free_array(cmd->args); 
@@ -84,7 +75,7 @@ char *copy_token_value(char *src)
 {
     if (!src)
         return NULL;
-    return strdup(src);
+    return ft_strdup(src);
 }
 
 
@@ -93,7 +84,7 @@ t_cmd *build_cmd_list(t_token *tokens)
     t_cmd *cmd_list = NULL;
     t_cmd *current_cmd = create_cmd();
     t_token *current = tokens;
-
+    int redir_type;
     while (current)
     {
         if (current->type == WORD)
@@ -102,7 +93,7 @@ t_cmd *build_cmd_list(t_token *tokens)
         }
         else if (current->type == REDIR_IN || current->type == REDIR_OUT || current->type == APPEND)
         {
-            int redir_type = current->type;
+            redir_type = current->type;
             current = current->next;
             if (current && current->type == WORD)
             {

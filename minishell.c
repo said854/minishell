@@ -6,36 +6,11 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 14:23:38 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/12 18:00:47 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/13 19:28:23 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void append_env(t_list **head, t_list *new_node)
-{
-	if (!*head)
-	{
-		*head = new_node;
-		return;
-	}
-	t_list *tmp = *head;
-	while (tmp->next)
-		tmp = tmp->next;
-
-	tmp->next = new_node; 
-}
-
-void print_list(t_token *head)
-{
-	t_token *tmp = head;
-
-	while (tmp)
-	{
-		printf("value: %s || type: %d\n", tmp->value, tmp->type);
-		tmp = tmp->next;
-	}
-}
 
 int is_empty(char *line)
 {
@@ -45,62 +20,18 @@ int is_empty(char *line)
 	}
 	return 0;
 }
-void print_list_env(t_list **head)
-{
-    t_list *tmp = *head;
-
-    while (tmp)
-    {
-        printf("key: %s | value: %s\n", tmp->key, tmp->value);
-        tmp = tmp->next;
-    }
-}
-#include <stdio.h>
-
-void print_cmd_list(t_cmd *cmd_list)
-{
-    int i;
-    int cmd_num = 1;
-
-    while (cmd_list)
-    {
-        printf("🔹 CMD %d:\n", cmd_num++);
-
-        // Print args
-        printf("  args    = ");
-        if (cmd_list->args)
-        {
-            i = 0;
-            while (cmd_list->args[i])
-                printf("\"%s\" ", cmd_list->args[i++]);
-        }
-        else
-            printf("(none)");
-        printf("\n");
-
-        // Print redirections
-        printf("  infile  = %s\n", cmd_list->infile ? cmd_list->infile : "(none)");
-        printf("  outfile = %s\n", cmd_list->outfile ? cmd_list->outfile : "(none)");
-        printf("  append  = %d\n", cmd_list->append);
-        printf("  pipe    = %s\n", cmd_list->has_pipe ? "true" : "false");
-        printf("\n");
-
-        cmd_list = cmd_list->next;
-    }
-}
-
 int main(int ac, char **av, char **envp)
 {
     (void) ac;
     (void) av;
     char *line;
     int i = 0;
-    t_list *env_list = NULL;
+    t_env *env_list = NULL;
     t_token *cmd;
     t_cmd *f_cmd;
     while (envp[i])
     {
-        t_list *node = ft_lstnew(envp[i]);
+        t_env *node = env_copy(envp[i]);
         if (node)
             append_env(&env_list, node);
         i++;

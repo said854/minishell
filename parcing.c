@@ -6,22 +6,14 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:36:31 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/12 16:57:10 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/13 19:11:19 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
 
-int is_quote(char c)
-{
-    return (c == '\'' || c == '"');
-}
 
-int is_operator(char c)
-{
-    return (c == '|' || c == '<' || c == '>');
-}
 
 t_token *create_token(char *str, t_token_type type)
 {
@@ -30,7 +22,7 @@ t_token *create_token(char *str, t_token_type type)
     new_token = malloc(sizeof(t_token));
     if (!new_token)
         return (NULL);
-    new_token->value = strdup(str);
+    new_token->value = ft_strdup(str);
     new_token->type = type;
     new_token->next = NULL;
     return (new_token);
@@ -98,7 +90,7 @@ t_token_type get_token_type(char *str)
     return WORD;
 }
 
-t_token *tokenize_line(char *line, t_list *env, int last_exit_status)
+t_token *tokenize_line(char *line, t_env *env, int last_exit_status)
 {
     int i = 0, len;
     t_token *head = NULL;

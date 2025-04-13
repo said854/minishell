@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 17:57:06 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/10 17:30:44 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/13 19:12:03 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,10 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stddef.h>
-# include <string.h>
 
 typedef struct s_list
 {
-	char			*key;
-	char			*value;
+	void			*content;
 	struct s_list	*next;
 }		t_list;
 
@@ -53,16 +51,15 @@ char	*ft_strrchr(const char *s, int c);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 int		ft_isspace(int c);
-int		ft_isuper(int c);
-int		ft_islower(int c);
-
+int 	is_quote(char c);
+int 	is_operator(char c);
 
 /* PART 2 */
 
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-char	*ft_strdup(const char *s1, int len);
+char	*ft_strdup(const char *s1);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 void	ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
@@ -73,7 +70,14 @@ char	*ft_itoa(int n);
 
 /* BONUS PART */
 
-
-t_list	*ft_lstnew(char *content);
+void	ft_lstadd_back(t_list **lst, t_list *new);
+void	ft_lstadd_front(t_list **lst, t_list *new);
+void	ft_lstclear(t_list **lst, void (*del)(void*));
+void	ft_lstdelone(t_list *lst, void (*del)(void*));
+void	ft_lstiter(t_list *lst, void (*f)(void *));
+t_list	*ft_lstlast(t_list *lst);
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+t_list	*ft_lstnew(void *content);
+int		ft_lstsize(t_list *lst);
 
 #endif

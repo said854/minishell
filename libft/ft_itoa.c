@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:00:08 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/08 15:53:55 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/13 18:54:58 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ char	*ft_itoa(int n)
 	int		len;
 	char	*ptr;
 
-	
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
 	len = ft_len(n);
 	ptr = (char *)malloc(len + 1);
 	if (ptr == NULL)
