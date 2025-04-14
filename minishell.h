@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 14:20:48 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/13 19:16:08 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/14 17:18:34 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ typedef struct s_cmd {
 #include <readline/history.h>
 # include <stdlib.h>
 # include <string.h>
-# include <unistd.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/wait.h>
 #include "libft/libft.h"
-
+#include <sys/types.h>
 
 char *parce_line(char *line);
 t_token *tokenize_line(char *line, t_env *env, int last_exit_status);
@@ -71,6 +73,7 @@ void free_array(char **arr);
 void print_list_env(t_env **head);
 void print_cmd_list(t_cmd *cmd_list);
 void print_list(t_token *head);
+void pipex(t_cmd *cmd, char **envp);
 
 
 

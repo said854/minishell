@@ -6,11 +6,11 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:13:18 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/13 19:28:16 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/14 15:43:29 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.c"
+#include "minishell.h"
 
 void print_list_env(t_env **head)
 {

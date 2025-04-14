@@ -6,13 +6,13 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:54:25 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/13 19:14:12 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/14 17:19:39 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd *create_cmd()
+static t_cmd *create_cmd()
 {
     t_cmd *new_cmd;
 
@@ -28,7 +28,7 @@ t_cmd *create_cmd()
     return (new_cmd);
 }
 
-int calculate_args(t_cmd *cmd)
+static int calculate_args(t_cmd *cmd)
 {
     int i = 0;
     if (!cmd->args)
@@ -38,7 +38,7 @@ int calculate_args(t_cmd *cmd)
     return i;
 }
 
-void add_arg_to_cmd(t_cmd *cmd, char *arg)
+static void add_arg_to_cmd(t_cmd *cmd, char *arg)
 {
     int old_len = calculate_args(cmd);
     char **args = malloc(sizeof(char *) * (old_len + 2));
