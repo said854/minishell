@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 14:46:03 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/13 19:03:39 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/17 15:56:01 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int check_syntax(t_token *token_list)
     t_token *prev = NULL;
 
     if (!current)
-        return print_error("error: empty input");
+        return 0;
     if (current->type == PIPE)
         return print_error("syntax error near unexpected token `|`");
     while (current)

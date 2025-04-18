@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 14:20:48 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/14 17:18:34 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/18 12:30:12 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ typedef struct s_cmd {
 	char *infile;        // file for input redirection
 	char *outfile;       // file for output redirection
 	int append;          // 1 if >>
-	int has_pipe;        // 1 if this cmd is followed by |
+	int has_pipe;
+	char *heredoc_delim;
+	int  heredoc_expand;
 	struct s_cmd *next;
 } t_cmd;
 

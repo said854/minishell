@@ -6,14 +6,12 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:36:31 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/13 19:11:19 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/17 17:04:20 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
-
-
 
 t_token *create_token(char *str, t_token_type type)
 {
@@ -48,32 +46,37 @@ void append_token(t_token **head, t_token *new)
 int get_token_length(char *line, int i)
 {
     int start = i;
-    char quote_type;
+    int in_single_quote = 0;
+    int in_double_quote = 0;
 
-    while (ft_isspace(line[i]))
+    while (line[i] && ft_isspace(line[i]))
         i++;
-    if (is_quote(line[i]))
-    {
-        quote_type = line[i++];
-        while (line[i] && line[i] != quote_type)
-            i++;
-        if (line[i] == quote_type)
-            i++; 
-        return i - start;
-    }
+    start = i;
+
     if (is_operator(line[i]))
     {
-        if (is_operator(line[i + 1]) && (line[i] == line[i + 1] && line[i] != '|'))
+        if (is_operator(line[i + 1]) && line[i] == line[i + 1] && line[i] != '|')
             return 2;
         return 1;
     }
-    while (line[i] &&
-           !ft_isspace(line[i]) &&
-           !is_operator(line[i]) &&
-           !is_quote(line[i]))
+    while (line[i])
+    {
+        if (line[i] == '\'' && !in_double_quote)
+            in_single_quote = !in_single_quote;
+        else if (line[i] == '"' && !in_single_quote)
+            in_double_quote = !in_double_quote;
+        else if (!in_single_quote && !in_double_quote)
+        {
+            if (ft_isspace(line[i]) || is_operator(line[i]))
+                break;
+        }
         i++;
+    }
+    if (in_single_quote || in_double_quote)
+        return -1;
     return i - start;
 }
+
 
 t_token_type get_token_type(char *str)
 {
@@ -105,6 +108,11 @@ t_token *tokenize_line(char *line, t_env *env, int last_exit_status)
             break;
 
         len = get_token_length(line, i);
+        if(len == -1)
+        {
+            printf("syntax error: unclosed quote\n");
+            return 0;
+        }
         token_str = strndup(line + i, len);
         type = get_token_type(token_str);
 

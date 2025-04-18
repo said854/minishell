@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 14:23:38 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/14 17:23:00 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/17 15:53:02 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int main(int ac, char **av, char **envp)
         if (check_syntax(cmd))
         {
             f_cmd = build_cmd_list(cmd);
+            // parce_cmd(f_cmd);
             print_cmd_list(f_cmd);
         }
         // free_token_list(cmd); 
