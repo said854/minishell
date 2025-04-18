@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:36:31 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/17 17:04:20 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/18 17:57:30 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ t_token *tokenize_line(char *line, t_env *env, int last_exit_status)
         }
         token_str = strndup(line + i, len);
         type = get_token_type(token_str);
-
+        
         if (type == WORD && ft_strchr(token_str, '$'))
         {
             char *expanded = expand_token_value(token_str, env, last_exit_status);

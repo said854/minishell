@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:13:18 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/14 15:43:29 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/18 18:32:59 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void print_cmd_list(t_cmd *cmd_list)
         printf("  outfile = %s\n", cmd_list->outfile ? cmd_list->outfile : "(none)");
         printf("  append  = %d\n", cmd_list->append);
         printf("  pipe    = %s\n", cmd_list->has_pipe ? "true" : "false");
+        printf("  herdok  = %s\n", cmd_list->heredoc_delim);
+        printf("  herdok num = %d\n", cmd_list->heredoc_expand);
         printf("\n");
 
         cmd_list = cmd_list->next;
