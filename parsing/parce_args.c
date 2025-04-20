@@ -6,11 +6,11 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:39:13 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/17 15:44:52 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/20 16:30:58 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parsing.h"
 
 
 void parce_args(t_cmd *f_cmd)

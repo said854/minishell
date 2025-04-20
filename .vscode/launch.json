@@ -1,7 +1,6 @@
 {
   "version": "0.2.0",
   "configurations": [
-    
     {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
@@ -9,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/sjoukni/Desktop/minishell",
-      "program": "/home/sjoukni/Desktop/minishell/build/Debug/outDebug",
+      "cwd": "/home/sjoukni/Desktop/fminishell/parsing",
+      "program": "/home/sjoukni/Desktop/fminishell/parsing/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

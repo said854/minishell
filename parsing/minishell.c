@@ -6,11 +6,11 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 14:23:38 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/17 15:53:02 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/20 17:09:50 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parsing.h"
 
 int is_empty(char *line)
 {
@@ -38,9 +38,10 @@ int main(int ac, char **av, char **envp)
     }
     // print_list_env(&env_list);
     // print_list(&env_list);
+    mini_display();
     while (1)
     {
-        line = readline("minishell$ ");
+        line = readline(CYAN "minishell$ " RESET);
         if (!line)
         {
             free(line);
@@ -60,6 +61,7 @@ int main(int ac, char **av, char **envp)
             f_cmd = build_cmd_list(cmd);
             // parce_cmd(f_cmd);
             print_cmd_list(f_cmd);
+            // execution_part(f_cmd, env_list, envp);
         }
         // free_token_list(cmd); 
         // free(line);

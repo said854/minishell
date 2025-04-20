@@ -6,12 +6,12 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:36:31 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/18 17:57:30 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/20 22:40:15 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "minishell.h"
+#include "parsing.h"
 
 t_token *create_token(char *str, t_token_type type)
 {
@@ -52,19 +52,30 @@ int get_token_length(char *line, int i)
     while (line[i] && ft_isspace(line[i]))
         i++;
     start = i;
-
-    if (is_operator(line[i]))
+    if (line[i] == ';')
+    {
+        if(line[i + 1] == ';')
+            return (-2);
+        return 1;
+    }
+    else if (is_operator(line[i]))
     {
         if (is_operator(line[i + 1]) && line[i] == line[i + 1] && line[i] != '|')
             return 2;
         return 1;
     }
     while (line[i])
-    {
+    { 
         if (line[i] == '\'' && !in_double_quote)
             in_single_quote = !in_single_quote;
         else if (line[i] == '"' && !in_single_quote)
             in_double_quote = !in_double_quote;
+        else if(line[i] == '\\' && line[i + 1] == '"')
+        {
+            i += 1;
+        }
+        if (line[i] == ';') 
+            break;
         else if (!in_single_quote && !in_double_quote)
         {
             if (ft_isspace(line[i]) || is_operator(line[i]))
@@ -90,6 +101,8 @@ t_token_type get_token_type(char *str)
         return REDIR_IN;
     if (!strcmp(str, "<<"))
         return HEREDOC;
+    if (!strcmp(str, ";"))
+        return SEMICOLON;    
     return WORD;
 }
 
@@ -106,11 +119,15 @@ t_token *tokenize_line(char *line, t_env *env, int last_exit_status)
             i++;
         if (!line[i])
             break;
-
+        
         len = get_token_length(line, i);
-        if(len == -1)
+
+        if(len < 0)
         {
-            printf("syntax error: unclosed quote\n");
+            if(len == (-1))
+                printf("syntax error: unclosed quote\n");
+            else if(len == (-2))
+                printf("syntax error near `;;'\n");
             return 0;
         }
         token_str = strndup(line + i, len);

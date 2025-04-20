@@ -1,35 +1,40 @@
 NAME = minishell
 CC = cc
+CFLAGS = -Wall -Wextra -Werror
+
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
-CFLAGS = -Wall -Wextra -Werror 
-HEADER = minishell.h 
 
-SRC_FILES = minishell.c parcing.c parce_dollar.c handel_error.c parce_cmd.c env_copy.c free_all.c print_lists.c pipe.c
+HEADER =  execution/execution.h parsing/parsing.h minishell.h
 
+PRS_FILES = parsing/minishell.c parsing/parcing.c parsing/parce_dollar.c parsing/handel_error.c \
+			parsing/parce_cmd.c parsing/env_copy.c parsing/free_all.c parsing/print_lists.c \
+			parsing/pipe.c
 
-OBJ_FILES = $(SRC_FILES:.c=.o)
+EXC_FILES = execution/tools_1.c execution/tools_2.c execution/ft_split.c \
+			execution/built_in.c execution/ft_free.c execution/execution.c
+
+POBJ_FILES = $(PRS_FILES:.c=.o)
+EOBJ_FILES = $(EXC_FILES:.c=.o)
 
 all: $(NAME)
 
-
-$(NAME): $(OBJ_FILES) $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJ_FILES) $(LIBFT) -lreadline -o $(NAME)
+$(NAME): $(POBJ_FILES) $(EOBJ_FILES) $(LIBFT)
+	$(CC) $(CFLAGS) $(POBJ_FILES) $(EOBJ_FILES) $(LIBFT) -lreadline -o $(NAME)
 
 %.o: %.c $(HEADER)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT):
-	@$(MAKE) -C $(LIBFT_DIR)
+	$(MAKE) -C $(LIBFT_DIR)
 
 clean:
-	@rm -rf $(OBJ_FILES) 
-	@$(MAKE) -C $(LIBFT_DIR) clean
+	rm -rf $(POBJ_FILES) $(EOBJ_FILES)
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
-	@rm -f $(NAME) $(LIBFT)
+	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus
-
+.PHONY: all bonus clean fclean re

@@ -6,11 +6,11 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:54:25 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/18 18:34:51 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/20 18:27:02 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parsing.h"
 
 static t_cmd *create_cmd()
 {
@@ -60,6 +60,10 @@ char *remove_quotes(const char *str)
             in_double_quote = !in_double_quote;
             i++;
         }
+        else if(str[i] == '\\' && str[i + 1] == '"')
+        {
+            i += 1;
+        }
         else
         {
             result[j++] = str[i++];
@@ -72,8 +76,9 @@ char *remove_quotes(const char *str)
 
 static void add_arg_to_cmd(t_cmd *cmd, char *arg)
 {
+    // printf("arg is %s\n", arg);
     arg = remove_quotes(arg);
-    printf("arg is %s\n", arg);
+    // printf("arg is %s\n", arg);
     int old_len = calculate_args(cmd);
     char **args = malloc(sizeof(char *) * (old_len + 2));
     if (!args)
@@ -160,6 +165,12 @@ t_cmd *build_cmd_list(t_token *tokens)
         if (current->type == PIPE)
         {
             current_cmd->has_pipe = 1;
+            add_cmd_to_list(&cmd_list, current_cmd);
+            current_cmd = create_cmd();
+        }
+        else if (current->type == SEMICOLON)
+        {
+            printf("here");
             add_cmd_to_list(&cmd_list, current_cmd);
             current_cmd = create_cmd();
         }

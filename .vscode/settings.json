@@ -1,4 +1,8 @@
 {
+  "files.associations": {
+    "minishell.h": "c",
+    "parsing.h": "c"
+  },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
   "C_Cpp_Runner.debuggerPath": "gdb",
@@ -55,24 +59,5 @@
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
-  "C_Cpp_Runner.msvcSecureNoWarnings": false,
-  "files.associations": {
-    "minishell.h": "c",
-    "history.h": "c",
-    "limits.h": "c",
-    "readline.h": "c",
-    "charconv": "c",
-    "chrono": "c",
-    "optional": "c",
-    "format": "c",
-    "ratio": "c",
-    "system_error": "c",
-    "array": "c",
-    "functional": "c",
-    "tuple": "c",
-    "type_traits": "c",
-    "utility": "c",
-    "libft.h": "c",
-    "stdio.h": "c"
-  }
+  "C_Cpp_Runner.msvcSecureNoWarnings": false
 }

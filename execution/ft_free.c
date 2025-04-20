@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hakader <hakader@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/13 18:47:57 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/20 18:34:39 by sjoukni          ###   ########.fr       */
+/*   Created: 2025/04/11 11:50:31 by hakader           #+#    #+#             */
+/*   Updated: 2025/04/12 17:49:55 by hakader          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "execution.h"
 
-int	ft_isspace(int c)
+void	free_arr(char **str)
 {
-	return ((c >= 9 && c <= 13) || c == 32);
-}
-int is_quote(char c)
-{
-    return (c == '\'' || c == '"');
-}
+	int	i;
 
-int is_operator(char c)
-{
-    return (c == '|' || c == '<' || c == '>');
+	i = 0;
+	if (!str || !(*str))
+		return ;
+	while (str[i])
+	{
+		free (str[i]);
+		i++;
+	}
+	free (str);
 }
