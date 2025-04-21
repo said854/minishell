@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:54:25 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/20 18:27:02 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/21 15:13:56 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,15 @@ char *remove_quotes(const char *str)
             in_double_quote = !in_double_quote;
             i++;
         }
-        else if(str[i] == '\\' && str[i + 1] == '"')
+        else if(str[i] == '\\' )
         {
-            i += 1;
+            if(!in_double_quote)
+                i += 1;
+            else if(str[i + 1] == '"')
+            {
+                in_double_quote = 0;
+                i += 1;
+            }
         }
         else
         {
@@ -78,7 +84,7 @@ static void add_arg_to_cmd(t_cmd *cmd, char *arg)
 {
     // printf("arg is %s\n", arg);
     arg = remove_quotes(arg);
-    // printf("arg is %s\n", arg);
+    printf("arg is %s\n", arg);
     int old_len = calculate_args(cmd);
     char **args = malloc(sizeof(char *) * (old_len + 2));
     if (!args)
