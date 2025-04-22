@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:36:31 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/21 15:15:27 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/22 17:00:10 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,56 +45,75 @@ void append_token(t_token **head, t_token *new)
 
 int get_token_length(char *line, int i)
 {
-    int start = i;
+    int start;
     int in_single_quote = 0;
     int in_double_quote = 0;
 
     while (line[i] && ft_isspace(line[i]))
         i++;
     start = i;
+
     if (line[i] == ';')
     {
-        if(line[i + 1] == ';')
-            return (-2);
+        if (line[i + 1] == ';')
+            return -2;
         return 1;
     }
-    else if (is_operator(line[i]))
+    if (is_operator(line[i]))
     {
         if (is_operator(line[i + 1]) && line[i] == line[i + 1] && line[i] != '|')
             return 2;
         return 1;
     }
+
     while (line[i])
-    { 
+    {
         if (line[i] == '\'' && !in_double_quote)
-            in_single_quote = !in_single_quote;
-        else if (line[i] == '"' && !in_single_quote)
-            in_double_quote = !in_double_quote;
-        else if(line[i] == '\\' )
         {
-            if (!line[i + 1])
-                return(-3);
-            else if(line[i + 1] == '"')
+            in_single_quote = !in_single_quote;
+            i++;
+        }
+        else if (line[i] == '"' && !in_single_quote)
+        {
+            in_double_quote = !in_double_quote;
+            i++;
+        }
+        else if (line[i] == '\\')
+        {
+            if (in_single_quote)
             {
-                in_double_quote = 0;
+                i++;
+            }
+            else if (in_double_quote)
+            {
+                if (line[i + 1] == '"' || line[i + 1] == '\\' || line[i + 1] == '$' || line[i + 1] == '`')
+                    i += 2;
+                else
+                    i++;
+            }
+            else
+            {
+                if (!line[i + 1])
+                    return -3;
                 i += 2;
             }
         }
-        if (line[i] == ';') 
-            break;
-        else if (!in_single_quote && !in_double_quote)
+        else
         {
-            if (ft_isspace(line[i]) || is_operator(line[i]))
-                break;
+            if (!in_single_quote && !in_double_quote)
+            {
+                if (line[i] == ';' || ft_isspace(line[i]) || is_operator(line[i]))
+                    break;
+            }
+            i++;
         }
-        i++;
     }
+
     if (in_single_quote || in_double_quote)
         return -1;
+
     return i - start;
 }
-
-
 t_token_type get_token_type(char *str)
 {
     if (!strcmp(str, "|"))

@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 14:20:48 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/20 16:38:34 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/22 17:05:41 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void print_list_env(t_env **head);
 void print_cmd_list(t_cmd *cmd_list);
 void print_list(t_token *head);
 void pipex(t_cmd *cmd, char **envp);
+void free_cmd(t_cmd *cmd);
+void free_cmd_list(t_cmd *cmd_list);
 
 
 
