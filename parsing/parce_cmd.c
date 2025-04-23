@@ -6,27 +6,30 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:54:25 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/22 17:11:00 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/23 16:14:36 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-static t_cmd *create_cmd()
+t_cmd *create_cmd()
 {
-    t_cmd *new_cmd;
-
-    new_cmd = malloc(sizeof(t_cmd));
+    t_cmd *new_cmd = malloc(sizeof(t_cmd));
     if (!new_cmd)
-        return (NULL);
+        return NULL;
+
     new_cmd->args = NULL;
     new_cmd->infile = NULL;
     new_cmd->outfile = NULL;
     new_cmd->append = 0;
     new_cmd->has_pipe = 0;
     new_cmd->next = NULL;
-    return (new_cmd);
+    new_cmd->heredoc_delim = NULL;    
+    new_cmd->heredoc_expand = 0;       
+
+    return new_cmd;
 }
+
 
 static int calculate_args(t_cmd *cmd)
 {
@@ -203,6 +206,7 @@ t_cmd *build_cmd_list(t_token *tokens)
                 printf("minishell: syntax error near unexpected token `;'\n");
                 free_cmd(current_cmd);
                 free_cmd_list(cmd_list);
+                free_token_list(tokens);
                 return NULL;
             }
             add_cmd_to_list(&cmd_list, current_cmd);
@@ -214,6 +218,7 @@ t_cmd *build_cmd_list(t_token *tokens)
             {
                 free_cmd(current_cmd);
                 free_cmd_list(cmd_list);
+                free_token_list(tokens);
                 return NULL;
             }
         }
@@ -224,6 +229,5 @@ t_cmd *build_cmd_list(t_token *tokens)
         add_cmd_to_list(&cmd_list, current_cmd);
     else
         free_cmd(current_cmd);
-
     return cmd_list;
 }

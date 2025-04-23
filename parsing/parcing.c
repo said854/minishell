@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:36:31 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/22 17:00:10 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/23 16:15:35 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int get_token_length(char *line, int i)
 
     while (line[i])
     {
+        if (line[i] == '`')
+            return -4;
         if (line[i] == '\'' && !in_double_quote)
         {
             in_single_quote = !in_single_quote;
@@ -108,7 +110,6 @@ int get_token_length(char *line, int i)
             i++;
         }
     }
-
     if (in_single_quote || in_double_quote)
         return -1;
 
@@ -155,6 +156,9 @@ t_token *tokenize_line(char *line, t_env *env, int last_exit_status)
                 printf("syntax error near `;;'\n");
             else if(len == (-3))
                 printf("syntax error near `\\'\n");
+            else if(len == (-4))
+                printf("syntax error near ``'\n");
+            free_token_list(head);
             return 0;
         }
         token_str = strndup(line + i, len);
@@ -170,7 +174,6 @@ t_token *tokenize_line(char *line, t_env *env, int last_exit_status)
         {
             append_token(&head, create_token(token_str, type));
         }
-
         free(token_str);
         i += len;
     }

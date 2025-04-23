@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/sjoukni/Desktop/fminishell/parsing",
-      "program": "/home/sjoukni/Desktop/fminishell/parsing/build/Debug/outDebug",
+      "cwd": "/home/sjoukni/Desktop/fminishell",
+      "program": "/home/sjoukni/Desktop/fminishell/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
