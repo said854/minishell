@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 12:56:19 by hakader           #+#    #+#             */
-/*   Updated: 2025/04/23 15:54:53 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/24 16:00:21 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_cmd
 # include "libft/libft.h"
 # include "parsing/parsing.h"
 # include "execution/execution.h"
+# include <signal.h>
 
 # define RESET		"\x1b[0m"
 # define BLACK		"\x1b[30m"

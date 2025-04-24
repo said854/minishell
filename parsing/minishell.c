@@ -6,7 +6,7 @@
 /*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 14:23:38 by sjoukni           #+#    #+#             */
-/*   Updated: 2025/04/23 16:26:17 by sjoukni          ###   ########.fr       */
+/*   Updated: 2025/04/24 16:21:45 by sjoukni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ int main(int ac, char **av, char **envp)
 
     while (1)
     {
+        set_prompt_signals();
         line = readline(CYAN "minishell$ " RESET);
+
         if (!line)
         {
             free(line); 
